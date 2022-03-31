@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace _07_LancoltLista
 {
-    enum Oldal { jo, gonosz, civil}
-    internal class SzuperHos
+    public enum Oldal { jo, gonosz, civil}
+    public class SzuperHos
     {
         public SzuperHos(string nev, bool mutans, int ero, int gyorsasag, Oldal old)
         {

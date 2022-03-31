@@ -6,23 +6,118 @@ using System.Threading.Tasks;
 
 namespace _07_LancoltLista
 {
-    delegate void KiirasHandler(string tartalom);
-    class ListaElem
+    public delegate void KiirasHandler(string tartalom);
+    public class ListaElem
     {
         public ListaElem kov;
         public SzuperHos tart;
     }
-    internal class LancoltLista
+    public class LancoltLista
     {
-        ListaElem fej;
+        ListaElem fej = new ListaElem();
         ListaElem e;
-        void HozzaAdas(SzuperHos tartalom, KiirasHandler kh)
+        public void HozzaAdas(SzuperHos tartalom, KiirasHandler kh)
         {
             KiirasHandler _kh = kh;
             ListaElem p = fej;
             ListaElem uj = new ListaElem();
-            uj.tart = p;
+            uj.tart = tartalom;
             int i = 0;
+            bool beraktam = false;
+            if (p.kov == null)
+            {
+                fej.kov = uj;
+                _kh?.Invoke(uj.tart.Nev);
+            }
+            else
+            {
+                while (p.kov != null && beraktam != true)
+                {
+                    i++;
+                    e = p;
+                    p = p.kov;
+                    AlreadyInList(tartalom);
+                    if (p.tart.Ero > uj.tart.Ero)
+                    {
+                        e.kov = uj;
+                        uj.kov = p;
+                        beraktam = true;
+                        _kh?.Invoke(uj.tart.Nev);
+                    }
+                    
+                }
+                if(p.kov == null && beraktam != true)
+                {
+                    p.kov = uj;
+                    _kh?.Invoke(uj.tart.Nev);
+                }
+            }
+        }
+        public void AlreadyInList(SzuperHos t)
+        {
+            ListaElem p = fej;
+            while(p.kov != null)
+            {
+                p = p.kov;
+                if (p.tart.Nev == t.Nev)
+                {
+                    throw new AlreadyInListException(t.Nev);
+                }
+            }
+
+        }
+        public bool ItsTheSame(SzuperHos a, SzuperHos b)
+        {
+            return (a.Nev == b.Nev && a.Mutans == b.Mutans && a.Old == b.Old && a.Ero == b.Ero);
+        }
+        public void NevKereses(string nev)
+        {
+            ListaElem p = fej;
+            bool volt = false;
+            while (p.kov != null)
+            {
+                p = p.kov;
+                if (p.tart.Nev == nev)
+                {
+                    volt = true;
+                }
+            }
+            if (volt == false)
+                throw new ItsNotInTheList();
+            else
+                Console.WriteLine("Van ilyen hos");
+        }
+        public void ElemTorles(string nev)
+        {
+            ListaElem p = fej;
+            ListaElem elozo;
+            while (p.kov != null)
+            {
+                elozo = p;
+                p = p.kov;
+                if (p.tart.Nev == nev)
+                {
+                    elozo.kov = p.kov;
+                }
+            }
+        }
+        public void ElemTorles(SzuperHos hos)
+        {
+            ListaElem p = fej;
+            ListaElem elozo;
+            while (p.kov != null)
+            {
+                elozo = p;
+                p = p.kov;
+                if (ItsTheSame(p.tart, hos))
+                {
+                    elozo.kov = p.kov;
+                }
+            }
+        }
+        public void Szures(LancoltLista lista)
+        {
+            LancoltLista vegeredmeny = new LancoltLista();
         }
     }
 }

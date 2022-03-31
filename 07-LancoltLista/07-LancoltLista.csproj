@@ -6,4 +6,8 @@
     <RootNamespace>_07_LancoltLista</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="obj\" />
+  </ItemGroup>
+
 </Project>
