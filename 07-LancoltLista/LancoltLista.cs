@@ -115,9 +115,40 @@ namespace _07_LancoltLista
                 }
             }
         }
-        public void Szures(LancoltLista lista)
+        public LancoltLista Szures(LancoltLista lista)
         {
             LancoltLista vegeredmeny = new LancoltLista();
+            ListaElem p = lista.fej;
+            ListaElem vegnezo = new ListaElem();
+            while(p.kov != null)
+            {
+                p = p.kov;
+                if(p.tart.Mutans == true && p.tart.Ero > 10)
+                {
+                    if (vegeredmeny.fej.kov == null)
+                    {
+                        vegeredmeny.fej.kov = p.kov;
+                        vegnezo = vegeredmeny.fej.kov;
+                    }
+                    else
+                    {
+                        vegnezo.kov = p;
+                        vegnezo = vegnezo.kov;
+                        vegnezo.kov = null;
+                    }
+                }
+            }
+            return vegeredmeny;
+        }
+        public void ListaElemeiKiiro(LancoltLista lista, KiirasHandler kh)
+        {
+            KiirasHandler _kh = kh;
+            ListaElem p = lista.fej;
+            while(p.kov != null)
+            {
+                p = p.kov; Console.WriteLine("a");
+                _kh?.Invoke(p.tart.Nev);
+            }
         }
     }
 }
