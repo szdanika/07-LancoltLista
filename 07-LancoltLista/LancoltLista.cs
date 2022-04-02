@@ -15,9 +15,9 @@ namespace _07_LancoltLista
     public class LancoltLista
     {
         ListaElem fej = new ListaElem();
-        ListaElem e;
         public void HozzaAdas(SzuperHos tartalom, KiirasHandler kh)
         {
+            ListaElem e;
             KiirasHandler _kh = kh;
             ListaElem p = fej;
             ListaElem uj = new ListaElem();
@@ -127,7 +127,7 @@ namespace _07_LancoltLista
                 {
                     if (vegeredmeny.fej.kov == null)
                     {
-                        vegeredmeny.fej.kov = p.kov;
+                        vegeredmeny.fej.kov = p;
                         vegnezo = vegeredmeny.fej.kov;
                     }
                     else
@@ -146,7 +146,7 @@ namespace _07_LancoltLista
             ListaElem p = lista.fej;
             while(p.kov != null)
             {
-                p = p.kov; Console.WriteLine("a");
+                p = p.kov;
                 _kh?.Invoke(p.tart.Nev);
             }
         }

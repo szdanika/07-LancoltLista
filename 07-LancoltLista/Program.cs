@@ -18,13 +18,15 @@ namespace _07_LancoltLista
             SzuperHos a = new SzuperHos("a", false, 2, 3, Oldal.gonosz);
             SzuperHos b = new SzuperHos("b", false, 4, 3, Oldal.gonosz);
             SzuperHos c = new SzuperHos("c", false, 1, 3, Oldal.gonosz);
-            SzuperHos d = new SzuperHos("m", true, 11, 11, Oldal.gonosz);
+            SzuperHos d = new SzuperHos("d", true, 15, 15, Oldal.gonosz);
+            SzuperHos es = new SzuperHos("e", true, 15, 15, Oldal.gonosz);
             try
             {
                 list.HozzaAdas(a, BerakasKiiro);
                 list.HozzaAdas(b, BerakasKiiro);
                 list.HozzaAdas(c, BerakasKiiro);
                 list.HozzaAdas(d, BerakasKiiro);
+                list.HozzaAdas(es, BerakasKiiro);
             }catch(AlreadyInListException e)
             {
                 Console.WriteLine("Ez a hos mar a listaban van: " + e.Message);
