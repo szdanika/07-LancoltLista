@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace _07_LancoltLista
 {
     public delegate void KiirasHandler(string tartalom);
+    public delegate ListaElem Muvelet(ListaElem elem);
     public class ListaElem
     {
         public ListaElem kov;
@@ -149,6 +150,123 @@ namespace _07_LancoltLista
                 p = p.kov;
                 _kh?.Invoke(p.tart.Nev);
             }
+        }
+        public void ChangingTheList(Muvelet muvelet)
+        {
+            Muvelet _muvelet = muvelet;
+            ListaElem p = this.fej;
+            while(p.kov != null)
+            {
+                p = _muvelet?.Invoke(p.kov);
+            }
+        }
+        public LancoltLista MetszetKetLista(LancoltLista b)
+        {
+
+            LancoltLista ered = this;
+            
+            LancoltLista Vegeredmeny = new LancoltLista();
+            ListaElem eredetiListaNezo = this.fej;
+            ListaElem vegListaNezo = new ListaElem();
+            bool megegyezik = false;
+            while(eredetiListaNezo.kov != null)
+            {
+                megegyezik = false;
+                eredetiListaNezo = eredetiListaNezo.kov;
+                ListaElem masikListaNezo = b.fej;
+                while(masikListaNezo.kov !=null && megegyezik != true)
+                {
+                    masikListaNezo = masikListaNezo.kov;
+                    if(ItsTheSame(masikListaNezo.tart,eredetiListaNezo.tart))
+                    {
+                        if (Vegeredmeny.fej.kov == null)
+                        {
+                            ListaElem uj = eredetiListaNezo;
+                            Vegeredmeny.fej.kov = uj;
+                            vegListaNezo = Vegeredmeny.fej.kov;
+                        }
+                        else
+                        {
+                            ListaElem uj = eredetiListaNezo;
+                            vegListaNezo.kov = uj;
+                            vegListaNezo = vegListaNezo.kov;
+                            vegListaNezo.kov = null;
+                        }
+                        megegyezik = true;
+                    }
+                }
+            }
+            return Vegeredmeny;
+        }
+        public LancoltLista KulonbsegKetLista(LancoltLista b)
+        {
+            LancoltLista Vegeredmeny = new LancoltLista();
+            ListaElem eredetiListaNezo = this.fej;
+            ListaElem vegListaNezo = new ListaElem();
+            bool megegyezik = false;
+            while (eredetiListaNezo.kov != null)
+            {
+                megegyezik = false;
+                eredetiListaNezo = eredetiListaNezo.kov;
+                ListaElem masikListaNezo = b.fej;
+                while (masikListaNezo.kov != null)
+                {
+                    masikListaNezo = masikListaNezo.kov;
+                    if (ItsTheSame(masikListaNezo.tart, eredetiListaNezo.tart))
+                    {
+                        megegyezik = true;
+                    }
+                }
+                if (megegyezik == false)
+                {
+                    if (Vegeredmeny.fej.kov == null)
+                    {
+                        ListaElem uj = eredetiListaNezo;
+                        Vegeredmeny.fej.kov = uj;
+                        vegListaNezo = Vegeredmeny.fej.kov;
+                    }
+                    else
+                    {
+                        ListaElem uj = eredetiListaNezo;
+                        vegListaNezo.kov = uj;
+                        vegListaNezo = vegListaNezo.kov;
+                        vegListaNezo.kov = null;
+                    }
+                }
+            }
+            
+            return Vegeredmeny;
+        }
+        public LancoltLista UjUnioKetLista(LancoltLista b)
+        {
+            LancoltLista Vegeredmeny = new LancoltLista();
+            ListaElem utolsoBerakott = new ListaElem();
+
+            ListaElem aListaElem = fej;
+
+            while(aListaElem.kov != null)
+            {
+                aListaElem = aListaElem.kov;
+                Vegeredmeny.HozzaAdas(aListaElem.tart, null);
+            }
+            aListaElem = b.fej;
+            while(aListaElem.kov != null)
+            {
+                aListaElem = aListaElem.kov;
+                try
+                {
+                    AlreadyInList(aListaElem.tart);// ha mar benne van a listaba akkor elszal exceptionnal, ha nincs akkor tovabb megy igy berakja
+                    Vegeredmeny.HozzaAdas(aListaElem.tart, null);
+                }
+                catch(AlreadyInListException)
+                {
+                    //Mar benne van a listaban igy nem csinal semmit
+                }
+            }
+            
+
+
+            return Vegeredmeny;
         }
     }
 }

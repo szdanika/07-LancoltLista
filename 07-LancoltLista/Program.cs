@@ -12,6 +12,11 @@ namespace _07_LancoltLista
         {
             Console.WriteLine("Ez van benne van a listában : " + tartalom);
         }
+        public static ListaElem ErohozHozzaAdas(ListaElem elem)
+        {
+            elem.tart.Ero++;
+            return elem;
+        }
         static void Main(string[] args)
         {
             LancoltLista list = new LancoltLista();
@@ -50,6 +55,16 @@ namespace _07_LancoltLista
 
             LancoltLista szurtlista = list.Szures(list);
             szurtlista.ListaElemeiKiiro(szurtlista, MiVanAListaban);
+
+            LancoltLista Blist = new LancoltLista();
+            Blist.HozzaAdas(c, BerakasKiiro);
+            Blist.HozzaAdas(a, BerakasKiiro);
+            Blist.HozzaAdas(es, BerakasKiiro);
+            
+            list.KulonbsegKetLista(Blist);
+
+            list.UjUnioKetLista(Blist);
+
             Console.ReadLine();
         }
     }

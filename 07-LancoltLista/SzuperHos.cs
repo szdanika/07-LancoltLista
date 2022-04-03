@@ -20,7 +20,7 @@ namespace _07_LancoltLista
 
         public string Nev { get; private set; }
         public bool Mutans { get; private set; }
-        public int Ero { get; private set; }
+        public int Ero { get; set; }
         public int Gyorsasag { get; private set; }
         public Oldal Old { get; private set; }
 
