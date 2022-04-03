@@ -60,10 +60,15 @@ namespace _07_LancoltLista
             Blist.HozzaAdas(c, BerakasKiiro);
             Blist.HozzaAdas(a, BerakasKiiro);
             Blist.HozzaAdas(es, BerakasKiiro);
-            
-            list.KulonbsegKetLista(Blist);
+            SzuperHos test = new SzuperHos("proba", true, 14, 14, Oldal.gonosz);
+            Blist.HozzaAdas(test, BerakasKiiro);
 
-            list.UjUnioKetLista(Blist);
+
+            Console.WriteLine("Megvan az 'A' listaban de nincs meg a 'B' listaban elemek : ");
+            list.ListaElemeiKiiro(list.KulonbsegKetLista(Blist), MiVanAListaban);
+
+            Console.WriteLine("A ket lista unioja ");
+            list.ListaElemeiKiiro(list.UjUnioKetLista(Blist), MiVanAListaban);
 
             Console.ReadLine();
         }
